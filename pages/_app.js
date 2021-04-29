@@ -1,8 +1,9 @@
 import '../styles/globals.css';
 import 'tailwindcss/tailwind.css';
 import { AuthProvider } from '../context/AuthContext';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <AuthProvider>
       <Component {...pageProps} />
@@ -10,4 +11,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default App;

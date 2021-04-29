@@ -20,7 +20,16 @@
     background-size: cover;
   }
 }
-.mapboxgl-map {
-  width: 900px;
-  height: 600px;
+
+@layer utilities {
+  .translate-3d-50 {
+    transform: translate3d(-50%, -50%, 0);
+  }
+}
+
+.map__wrapper {
+  flex: 1 1 100%;
+}
+.places__wrapper {
+  max-height: calc(100vh - 64px) !important;
 }
