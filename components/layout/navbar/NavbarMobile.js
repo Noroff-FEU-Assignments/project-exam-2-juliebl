@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import AuthContext from '../../../context/AuthContext';
 import AdminMobile from './AdminMobile';
 
-function NavbarMobile({ menuOpen, user }) {
+function NavbarMobile({ menuOpen }) {
   const [auth, setAuth] = useContext(AuthContext);
   const router = useRouter();
 
@@ -30,7 +30,16 @@ function NavbarMobile({ menuOpen, user }) {
               Home
             </a>
           </Link>
-
+          <Link href="/places">
+            <a
+              className={
+                router.pathname == '/places'
+                  ? 'nav__link  nav__link--active'
+                  : 'nav__link'
+              }>
+              Accommodations
+            </a>
+          </Link>
           <Link href="/contact">
             <a
               className={
@@ -44,7 +53,7 @@ function NavbarMobile({ menuOpen, user }) {
         </div>
         <div className="pt-4 pb-3 border-t border-gray-700  bg-white rounded-b-md">
           {auth ? (
-            <AdminMobile user={user} />
+            <AdminMobile user={auth.user} />
           ) : (
             <>
               <Link href="/login">
