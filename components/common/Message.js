@@ -4,6 +4,7 @@ import {
   XCircleIcon,
   RefreshIcon,
 } from '@heroicons/react/outline';
+import PropTypes from 'prop-types';
 
 export function Message({ message, style }) {
   let icon;
@@ -18,13 +19,8 @@ export function Message({ message, style }) {
       icon = <XCircleIcon className="inline w-5 mr-2" />;
       break;
     case 'loading':
-      icon = <RefreshIcon className="inline w-5 mr-2" />;
-      break;
-    case 'loading':
       icon = <RefreshIcon className="animate-spin-reverse inline w-5 mr-2" />;
       break;
-    default:
-      icon = '';
   }
 
   return (
@@ -53,8 +49,6 @@ export function BigMessage({ message, style }) {
     case 'loading':
       icon = <RefreshIcon className="animate-spin-reverse inline w-10 mr-2" />;
       break;
-    default:
-      icon = '';
   }
   return (
     <div
@@ -64,3 +58,12 @@ export function BigMessage({ message, style }) {
     </div>
   );
 }
+
+Message.propTypes = {
+  message: PropTypes.string.isRequired,
+  style: PropTypes.oneOf(['success', 'warning', 'danger', 'loading']),
+};
+BigMessage.propTypes = {
+  message: PropTypes.string.isRequired,
+  style: PropTypes.oneOf(['success', 'warning', 'danger', 'loading']),
+};
