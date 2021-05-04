@@ -40,7 +40,7 @@ function CardListItem({ icon, text }) {
 export default CardListItem;
 
 CardListItem.propTypes = {
-  text: PropTypes.string.isRequired,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   icon: PropTypes.oneOf([
     'guest',
     'bed',
