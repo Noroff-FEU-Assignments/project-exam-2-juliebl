@@ -56,7 +56,7 @@ function Login() {
     }
   }
   return (
-    <Layout>
+    <Layout containerSize="smallWidth">
       <Head title="Log in" />
       <Heading text="Login" />
       <div className="w-10/12 lg:w-2/4 mx-auto">
