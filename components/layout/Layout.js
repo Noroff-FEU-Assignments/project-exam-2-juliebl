@@ -7,8 +7,11 @@ function Layout({ children, containerSize }) {
     case 'fullWidth':
       containerSize = 'm-0';
       break;
-    case 'smallWidth':
+    case 'mediumWidth':
       containerSize = 'mx-auto container px-4 sm:px-6 lg:px8';
+      break;
+    case 'smallWidth':
+      containerSize = 'mx-auto container px-4 sm:w-3/4 md:w-2/3';
       break;
     default:
       containerSize = 'mx-auto container px-4 sm:px-6 lg:px8';
