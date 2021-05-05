@@ -1,31 +1,23 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Transition } from '@headlessui/react';
+import { getData } from '../../../hooks/useApi';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { LocationMarkerIcon, XIcon } from '@heroicons/react/solid';
+import CardListItem from '../card/CardListItem';
+import Link from 'next/link';
 
-export function Markers() {
-  const [showPopup, setShowPopup] = useState(false);
-  const [markers, setMarkers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    axios
-      .get('https://juliebl-exam.herokuapp.com/places')
-      .then((response) => {
-        setMarkers(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.toString());
-        setLoading(false);
-        console.log(error);
-      });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+export function Markers({
+  showPopup,
+  setShowPopup,
+  activePlace,
+  setActivePlace,
+}) {
+  const { data, loading, error } = getData('places');
 
   if (error) {
     return (
       <>
-        <p>error</p>
+        <p>{error}</p>
       </>
     );
   }
@@ -33,53 +25,129 @@ export function Markers() {
   if (loading) {
     return (
       <>
-        <p>loading</p>
+        <p>Loading...</p>
       </>
     );
   }
+
   return (
     <>
-      {markers.map((place) => (
+      {data.map((place) => (
         <Marker
           key={place.id}
           latitude={place.latitude}
-          longitude={place.longitude}>
-          <LocationMarkerIcon
-            onClick={() => setShowPopup(!showPopup)}
-            className="text-primary cursor-pointer hover:text-primary-dark w-6"
-          />
-
-          {showPopup && (
-            <div className="transition w-60 p-5 mt-2 rounded-md shadow bg-white">
-              <XIcon
-                onClick={() => setShowPopup(!showPopup)}
-                className="cursor-pointer w-4 ml-auto"
-              />
-              <p>yolo</p>
+          longitude={place.longitude}
+          className="z-50 mt-6">
+          <Transition
+            show={showPopup === place.id}
+            onMouseLeave={() => setShowPopup(null)}
+            onClick={() => setActivePlace(place.id)}
+            enter="transition-opacity duration-75"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0">
+            <div className="grid grid-cols-3 transition min-h-24 w-64 rounded-md shadow bg-white">
+              <div className="col-span-1">
+                <Link href={`/places/${place.slug}`}>
+                  <a>
+                    <img
+                      src={place.featured_image.formats.thumbnail.url}
+                      alt=""
+                      className="object-cover w-full h-full rounded-l-md"
+                    />
+                  </a>
+                </Link>
+              </div>
+              <div className="col-span-2 text-sm p-3 flex flex-col justify-center">
+                <Link href={`/places/${place.slug}`}>
+                  <a>
+                    <p className="font-semibold mb-2 break-words">
+                      {place.title}
+                    </p>
+                  </a>
+                </Link>
+                <p className="mb-2">${place.price} / night</p>
+                <CardListItem icon="guest" text={place.guests} />
+              </div>
             </div>
-          )}
+          </Transition>
         </Marker>
       ))}
     </>
   );
 }
 
-function Map() {
+export function Pins({ showPopup, setShowPopup, activePlace, setActivePlace }) {
+  const { data, loading, error } = getData('places');
+
+  if (error) {
+    return (
+      <>
+        <p>{error}</p>
+      </>
+    );
+  }
+
+  if (loading) {
+    return (
+      <>
+        <p>Loading...</p>
+      </>
+    );
+  }
+
+  return (
+    <>
+      {data.map((place) => (
+        <Marker
+          key={place.id}
+          latitude={place.latitude}
+          longitude={place.longitude}
+          className="z-10">
+          <Link href={`/places/${place.slug}`}>
+            <LocationMarkerIcon
+              onMouseEnter={() => setShowPopup(place.id)}
+              className="cursor-pointer text-primary hover:text-primary-dark w-6"
+            />
+          </Link>
+        </Marker>
+      ))}
+    </>
+  );
+}
+function Map({ showPopup, setShowPopup, activePlace, setActivePlace }) {
   const [viewport, setViewport] = useState({
     latitude: 60.3855,
     longitude: 5.32,
     zoom: 12,
   });
+  const [size, setSize] = useState({
+    width: '100%',
+    height: '100%',
+  });
 
   return (
     <ReactMapGL
-      width="100%"
-      height="100%"
       mapStyle={'mapbox://styles/mapbox/streets-v11?optimize=true'}
       mapboxApiAccessToken="pk.eyJ1IjoiYXBwbGVjNGtlIiwiYSI6ImNrbnN1aXRveDA5aG4ybnIwZ2JtbHM0MzMifQ.zvrylbGNC5_Kc9Fg7m_1mw"
       {...viewport}
-      onViewportChange={(nextViewport) => setViewport(nextViewport)}>
-      <Markers />
+      onViewportChange={(nextViewport) => setViewport(nextViewport)}
+      {...size}
+      onSizeChange={(nextSize) => setSize(nextSize)}>
+      <Pins
+        showPopup={showPopup}
+        setShowPopup={setShowPopup}
+        activePlace={activePlace}
+        setActivePlace={setActivePlace}
+      />
+      <Markers
+        showPopup={showPopup}
+        setShowPopup={setShowPopup}
+        activePlace={activePlace}
+        setActivePlace={setActivePlace}
+      />
     </ReactMapGL>
   );
 }
