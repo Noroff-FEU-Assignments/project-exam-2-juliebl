@@ -19,6 +19,7 @@
     "react-hook-form": "^6.15.6",
     "react-image-lightbox": "^5.1.1",
     "react-map-gl": "^6.1.12",
+    "react-select": "^4.3.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {
