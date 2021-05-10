@@ -8,7 +8,7 @@ function Host({ host, place }) {
     <Disclosure>
       {({ open }) => (
         <>
-          <div className="flex bg-gray-100  justify-between items-center p-4 py-6 mt-12 rounded-md">
+          <div className="flex bg-gray-100 justify-between items-center p-4 py-6 rounded-md">
             <div className="flex items-center">
               <img
                 src={host.avatar.formats.thumbnail.url}
