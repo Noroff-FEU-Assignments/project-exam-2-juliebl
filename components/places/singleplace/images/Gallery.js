@@ -10,7 +10,6 @@ function Gallery({ open, setOpen, photoIndex, setPhotoIndex, images }) {
   images.forEach((image) => {
     imageThumbs.push(image.formats.thumbnail.url);
   });
-  console.log(imageThumbs);
   return (
     <>
       {open && (
