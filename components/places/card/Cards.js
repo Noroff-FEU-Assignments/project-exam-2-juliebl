@@ -1,27 +1,8 @@
-import Card from './Card';
 import CardListItem from './CardListItem';
 import { getData } from '../../../hooks/useApi';
 import Link from 'next/link';
 
-function Cards({ showPopup, setShowPopup, activePlace, setActivePlace }) {
-  const { data, loading, error } = getData('places');
-
-  if (error) {
-    return (
-      <>
-        <p>{error}</p>
-      </>
-    );
-  }
-
-  if (loading) {
-    return (
-      <>
-        <p>Loading...</p>
-      </>
-    );
-  }
-
+function Cards({ data, showPopup, setShowPopup, activePlace, setActivePlace }) {
   return (
     <>
       {data.map((place) => (
