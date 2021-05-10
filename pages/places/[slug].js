@@ -22,7 +22,7 @@ export default function Place({ place }) {
           </p>
         </div>
         <div className="grid grid-cols-5 gap-10">
-          <div className="col-span-3 leading-loose">
+          <div className="col-span-5 xl:col-span-3">
             <div>
               <Features
                 guests={place.guests}
@@ -33,9 +33,15 @@ export default function Place({ place }) {
                 kitchen={place.kitchen}
               />
             </div>
-            <p className="mt-6">{place.description}</p>
+            <div className="block xl:hidden">
+              <Host host={place.host} place={place.title} />
+            </div>
+            <p className="mt-6 leading-relaxed">{place.description}</p>
+            <div className="block xl:hidden">
+              <Minimap place={place} />
+            </div>
           </div>
-          <div className="col-span-2">
+          <div className="hidden xl:block col-span-2">
             <Host host={place.host} place={place.title} />
             <Minimap place={place} />
           </div>
@@ -64,7 +70,8 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  let place = null;
+  let place = [];
+
   try {
     const res = await axios.get(`${BASE_URL}places?slug=${params.slug}`);
     place = res.data;
