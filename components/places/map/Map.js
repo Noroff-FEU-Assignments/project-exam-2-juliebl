@@ -1,35 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Transition } from '@headlessui/react';
-import { getData } from '../../../hooks/useApi';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { LocationMarkerIcon, XIcon } from '@heroicons/react/solid';
 import CardListItem from '../card/CardListItem';
 import Link from 'next/link';
 
 export function Markers({
+  data,
   showPopup,
   setShowPopup,
   activePlace,
   setActivePlace,
 }) {
-  const { data, loading, error } = getData('places');
-
-  if (error) {
-    return (
-      <>
-        <p>{error}</p>
-      </>
-    );
-  }
-
-  if (loading) {
-    return (
-      <>
-        <p>Loading...</p>
-      </>
-    );
-  }
-
   return (
     <>
       {data.map((place) => (
@@ -79,25 +61,13 @@ export function Markers({
   );
 }
 
-export function Pins({ showPopup, setShowPopup, activePlace, setActivePlace }) {
-  const { data, loading, error } = getData('places');
-
-  if (error) {
-    return (
-      <>
-        <p>{error}</p>
-      </>
-    );
-  }
-
-  if (loading) {
-    return (
-      <>
-        <p>Loading...</p>
-      </>
-    );
-  }
-
+export function Pins({
+  data,
+  showPopup,
+  setShowPopup,
+  activePlace,
+  setActivePlace,
+}) {
   return (
     <>
       {data.map((place) => (
@@ -117,7 +87,7 @@ export function Pins({ showPopup, setShowPopup, activePlace, setActivePlace }) {
     </>
   );
 }
-function Map({ showPopup, setShowPopup, activePlace, setActivePlace }) {
+function Map({ data, showPopup, setShowPopup, activePlace, setActivePlace }) {
   const [viewport, setViewport] = useState({
     latitude: 60.3855,
     longitude: 5.32,
@@ -137,12 +107,14 @@ function Map({ showPopup, setShowPopup, activePlace, setActivePlace }) {
       {...size}
       onSizeChange={(nextSize) => setSize(nextSize)}>
       <Pins
+        data={data}
         showPopup={showPopup}
         setShowPopup={setShowPopup}
         activePlace={activePlace}
         setActivePlace={setActivePlace}
       />
       <Markers
+        data={data}
         showPopup={showPopup}
         setShowPopup={setShowPopup}
         activePlace={activePlace}
