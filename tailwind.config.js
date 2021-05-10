@@ -20,8 +20,9 @@ module.exports = {
         },
         secondary: {
           light: '#EEF2FF',
-          DEFAULT: '#001D2F',
-          dark: '#202e78',
+          DEFAULT: '#153044',
+          dark: '#001D2F',
+          darkest: '#001725',
         },
         success: {
           DEFAULT: '#E0F1E7',
