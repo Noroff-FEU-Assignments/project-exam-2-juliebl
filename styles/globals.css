@@ -8,11 +8,26 @@
 .nav__link--active {
   @apply transition  text-gray-800 font-medium;
 }
+
+.dashboard__link {
+  @apply m-3 p-3 rounded-md opacity-70 flex items-center;
+}
+.dashboard__link:hover {
+  @apply bg-secondary-darkest m-3 p-3 rounded-md opacity-100 flex items-center;
+}
+.dashboard__link--active {
+  @apply bg-secondary  m-3 p-3 rounded-md opacity-100 flex items-center;
+}
 .background__image {
   background: url('/bkg-johannes-ludwig-8dejZGw3Hec-unsplash.jpg');
   background-position: center;
   background-size: cover;
 }
+
+.places__wrapper {
+  max-height: calc(100vh - 164px) !important;
+}
+
 @media (max-width: 800px) {
   .background__image {
     background: url('/small-bkg-johannes-ludwig-8dejZGw3Hec-unsplash.jpg');
@@ -25,11 +40,4 @@
   .translate-3d-50 {
     transform: translate3d(-50%, -50%, 0);
   }
-}
-
-.map__wrapper {
-  flex: 1 1 100%;
-}
-.places__wrapper {
-  max-height: calc(100vh - 64px) !important;
 }
