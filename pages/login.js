@@ -59,7 +59,7 @@ function Login() {
     <Layout containerSize="smallWidth">
       <Head title="Log in" />
       <Heading text="Login" />
-      <div className="w-10/12 lg:w-2/4 mx-auto">
+      <div className="sm:w-10/12 lg:w-2/4 mx-auto">
         {auth ? (
           <BigMessage
             message="Logged in! Redirecting to dashboard."
