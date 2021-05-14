@@ -1,6 +1,26 @@
-import { useState } from 'react';
-// Code provided by https://usehooks.com/useLocalStorage/
+import { useState, useEffect } from 'react';
+
+// https://codesandbox.io/s/z20gn?file=/pages/index.js
+
 export default function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    const stickyValue = window.localStorage.getItem(key);
+
+    if (stickyValue !== null) {
+      setValue(JSON.parse(stickyValue));
+    }
+  }, [key]);
+
+  useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+
+  return [value, setValue];
+}
+
+/* export default function useLocalStorage(key, initialValue) {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState(() => {
@@ -15,7 +35,6 @@ export default function useLocalStorage(key, initialValue) {
       return initialValue;
     }
   });
-
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
   const setValue = (value) => {
@@ -32,6 +51,6 @@ export default function useLocalStorage(key, initialValue) {
       console.log(error);
     }
   };
-
   return [storedValue, setValue];
 }
+ */
