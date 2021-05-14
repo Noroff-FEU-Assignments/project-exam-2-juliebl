@@ -5,7 +5,7 @@ function Heading({ text }) {
 }
 
 export function HeadingSmaller({ text }) {
-  return <h1 className="font-bold text-3xl mt-6">{text}</h1>;
+  return <h1 className="font-bold text-3xl my-6">{text}</h1>;
 }
 
 Heading.propTypes = {
