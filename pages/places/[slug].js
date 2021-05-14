@@ -3,13 +3,26 @@ import { HeadingSmaller } from '../../components/common/Heading';
 import Layout from '../../components/layout/Layout';
 import axios from 'axios';
 import { BASE_URL } from '../../constants/api';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
 import Features from '../../components/places/singleplace/Features';
-import Enquiry from '../../components/places/singleplace/Enquiry';
 import Host from '../../components/places/singleplace/Host';
 import Minimap from '../../components/places/singleplace/Minimap';
 import ImageGrid from '../../components/places/singleplace/images/ImageGrid';
 
-export default function Place({ place }) {
+export default function Place() {
+  const router = useRouter();
+  const { slug } = router.query;
+
+  const { data, error } = useSWR(
+    slug ? `${BASE_URL}places?slug=${slug}` : null
+  );
+
+  if (error) return <p>error</p>;
+  if (!data) return <p>loading..</p>;
+
+  const place = data[0];
+
   return (
     <Layout containerSize="smallWidth">
       <div className="mt-20">
@@ -49,37 +62,4 @@ export default function Place({ place }) {
       </div>
     </Layout>
   );
-}
-
-export async function getStaticPaths() {
-  try {
-    const res = await axios.get(BASE_URL + 'places');
-    const places = res.data;
-    const paths = places.map((place) => ({
-      params: {
-        slug: place.slug,
-      },
-    }));
-    return {
-      paths,
-      fallback: false,
-    };
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export async function getStaticProps({ params }) {
-  let place = [];
-
-  try {
-    const res = await axios.get(`${BASE_URL}places?slug=${params.slug}`);
-    place = res.data;
-  } catch (error) {
-    console.log(error);
-  }
-
-  return {
-    props: { place: place[0] },
-  };
 }
