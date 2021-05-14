@@ -9,10 +9,14 @@ import {
   ArrowCircleLeftIcon,
   LocationMarkerIcon,
 } from '@heroicons/react/outline';
-import { useContext, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import AuthContext from '../../../../context/AuthContext';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import axios from 'axios';
+import useSWR from 'swr';
+import { BASE_URL } from '../../../../constants/api';
+import { fetchAdminData } from '../../../../hooks/useApi';
 
 function Sidebar() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -23,10 +27,20 @@ function Sidebar() {
     router.push('/');
   }
 
+  const { data, error } = fetchAdminData('messages?new=true');
+
+  if (error) {
+    console.log(error);
+  }
+  let newMessages;
+  if (data) {
+    newMessages = data.length;
+  }
+
   return (
     <>
       {auth && (
-        <div className="bg-secondary-dark text-white w-80 flex flex-col justify-between items-center">
+        <div className="bg-secondary-dark text-white w-80 h-full flex flex-col justify-between items-center">
           <div className="flex flex-col w-full items-center">
             <Link href="/">
               <a>
@@ -71,7 +85,7 @@ function Sidebar() {
                   </a>
                 </Link>
               </li>
-              <li>
+              <li className="relative">
                 <Link href="/admin/messages">
                   <a
                     className={
@@ -83,6 +97,19 @@ function Sidebar() {
                     Messages
                   </a>
                 </Link>
+                {newMessages > 0 && (
+                  <>
+                    <svg
+                      className="absolute left-4 top-2 text-primary fill-current w-4"
+                      viewBox="0 0 100 100"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="50" cy="50" r="50" />
+                    </svg>
+                    <span className="absolute left-4 top-2 px-1 text-xs font-medium">
+                      {newMessages}
+                    </span>
+                  </>
+                )}
               </li>
               <li>
                 <Link href="/admin/enquiries">
