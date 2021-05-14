@@ -17,26 +17,24 @@ function Dashboard() {
 
   return (
     <>
-      {auth && (
-        <AdminLayout>
-          <Head title="Dashboard" />
-          <Heading text="Dashboard" />
-          <div className="container mx-auto grid grid-cols-2 grid-rows-2 gap-8 w-full">
-            <div className="col-span-1 row-span-1 bg-red-200">
-              <p>test</p>
-            </div>
-            <div className="col-span-1 row-span-1 bg-yellow-200">
-              <p>test</p>
-            </div>
-            <div className="col-span-1 row-span-1 bg-green-400">
-              <p>test</p>
-            </div>
-            <div className="col-span-1 row-span-1 bg-blue-200">
-              <p>test</p>
-            </div>
+      <AdminLayout>
+        <Head title="Dashboard" />
+        <Heading text="Dashboard" />
+        <div className="container mx-auto grid grid-cols-2 grid-rows-2 gap-8 w-full">
+          <div className="col-span-1 row-span-1 bg-red-200">
+            <p>test</p>
           </div>
-        </AdminLayout>
-      )}
+          <div className="col-span-1 row-span-1 bg-yellow-200">
+            <p>test</p>
+          </div>
+          <div className="col-span-1 row-span-1 bg-green-400">
+            <p>test</p>
+          </div>
+          <div className="col-span-1 row-span-1 bg-blue-200">
+            <p>test</p>
+          </div>
+        </div>
+      </AdminLayout>
     </>
   );
 }

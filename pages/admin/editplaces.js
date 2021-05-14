@@ -16,12 +16,10 @@ function EditPlaces() {
   });
   return (
     <>
-      {auth && (
-        <AdminLayout>
-          <Head title="Edit places | Dashboard" />
-          <Heading text="Edit places" />
-        </AdminLayout>
-      )}
+      <AdminLayout>
+        <Head title="Edit places | Dashboard" />
+        <Heading text="Edit places" />
+      </AdminLayout>
     </>
   );
 }

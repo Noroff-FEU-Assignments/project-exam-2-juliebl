@@ -16,12 +16,10 @@ function Hosts() {
   });
   return (
     <>
-      {auth && (
-        <AdminLayout>
-          <Head title="Hosts | Dashboard" />
-          <Heading text="Hosts" />
-        </AdminLayout>
-      )}
+      <AdminLayout>
+        <Head title="Hosts | Dashboard" />
+        <Heading text="Hosts" />
+      </AdminLayout>
     </>
   );
 }
