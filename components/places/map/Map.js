@@ -1,17 +1,21 @@
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Transition } from '@headlessui/react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { LocationMarkerIcon, XIcon } from '@heroicons/react/solid';
 import CardListItem from '../card/CardListItem';
 import Link from 'next/link';
+import { BASE_URL } from '../../../constants/api';
+import useSWR from 'swr';
 
 export function Markers({
-  data,
   showPopup,
   setShowPopup,
   activePlace,
   setActivePlace,
 }) {
+  const { data, error } = useSWR(BASE_URL + 'places');
+  if (error) return <p>error</p>;
+  if (!data) return <p>loading..</p>;
   return (
     <>
       {data.map((place) => (
@@ -87,7 +91,7 @@ export function Pins({
     </>
   );
 }
-function Map({ data, showPopup, setShowPopup, activePlace, setActivePlace }) {
+function Map({ showPopup, setShowPopup, activePlace, setActivePlace }) {
   const [viewport, setViewport] = useState({
     latitude: 60.3855,
     longitude: 5.32,
@@ -97,6 +101,9 @@ function Map({ data, showPopup, setShowPopup, activePlace, setActivePlace }) {
     width: '100%',
     height: '100%',
   });
+  const { data, error } = useSWR(BASE_URL + 'places');
+  if (error) return <p>error</p>;
+  if (!data) return <p>loading..</p>;
 
   return (
     <ReactMapGL

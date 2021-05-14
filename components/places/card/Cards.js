@@ -1,8 +1,15 @@
 import CardListItem from './CardListItem';
 import { getData } from '../../../hooks/useApi';
 import Link from 'next/link';
+import { BASE_URL } from '../../../constants/api';
+import axios from 'axios';
+import useSWR from 'swr';
 
-function Cards({ data, showPopup, setShowPopup, activePlace, setActivePlace }) {
+function Cards({ showPopup, setShowPopup, activePlace, setActivePlace }) {
+  const url = BASE_URL + 'places?_sort=title:ASC';
+  const { data, error } = useSWR(url);
+  if (error) return <p>error</p>;
+  if (!data) return <p>loading..</p>;
   return (
     <>
       {data.map((place) => (
@@ -12,7 +19,7 @@ function Cards({ data, showPopup, setShowPopup, activePlace, setActivePlace }) {
           onMouseLeave={() => setShowPopup(null)}
           className="shadow hover:shadow-md border border-gray-100 grid grid-cols-1 grid-rows-2 h-96 rounded-md">
           <div className="rounded-md row-span-1">
-            <Link href={`/places/${place.slug}`}>
+            <Link href="/places/[slug]" as={`/places/${place.slug}`}>
               <a>
                 <img
                   src={place.featured_image.formats.small.url}
