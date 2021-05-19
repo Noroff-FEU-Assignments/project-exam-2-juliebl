@@ -7,9 +7,10 @@ import Link from 'next/link';
 import { useContext } from 'react';
 import AuthContext from '../../../context/AuthContext';
 import { useRouter } from 'next/router';
+import { getAuth } from '../../../hooks/useLocalStorage';
 
 export default function Navbar() {
-  const [auth, setAuth] = useContext(AuthContext);
+  const [auth, setAuth] = getAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
 

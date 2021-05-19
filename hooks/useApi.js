@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BASE_URL } from '../constants/api';
 import AuthContext from '../context/AuthContext';
 import useSWR from 'swr';
+import { getToken } from '../hooks/useLocalStorage';
 
 // DON'T NEED TO USE??
 
@@ -40,9 +41,7 @@ export function fetchData(path) {
   return { data, error };
 }
 export function fetchAdminData(path) {
-  const [auth, setAuth] = useContext(AuthContext);
-  console.log(auth);
-  const token = auth.jwt;
+  const [token, setToken] = getToken();
   const url = getStrapiURL(path);
 
   const fetchWithToken = (url) =>
@@ -53,6 +52,7 @@ export function fetchAdminData(path) {
         },
       })
       .then((res) => res.data);
+
   const { data, error } = useSWR(token ? url : null, fetchWithToken, {
     refreshInterval: 5000,
   });

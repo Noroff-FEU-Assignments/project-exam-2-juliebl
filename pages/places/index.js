@@ -38,11 +38,11 @@ function Home() {
       <Head title="Accommodations" />
       {/*  <Heading text="Map" />*/}
       <div className="bg-white max-w-2xl ml-4" style={{ height: '100px' }}>
-        {/*         <SearchBar
+        <SearchBar
           data={data}
           filteredPlaces={filteredPlaces}
           setFilteredPlaces={setFilteredPlaces}
-        /> */}
+        />
       </div>
       <div className="grid grid-cols-5 grid-rows-2 gap-4 places__wrapper">
         <div className="hidden md:block relative col-span-3 row-span-2 map__wrapper bg-gray-200">

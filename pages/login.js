@@ -1,7 +1,7 @@
 import Head from '../components/layout/Head';
 import Heading from '../components/common/Heading';
 import Layout from '../components/layout/Layout';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import AuthContext from '../context/AuthContext';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
@@ -36,10 +36,11 @@ function Login() {
 
   const [auth, setAuth] = useContext(AuthContext);
   const router = useRouter();
-
-  if (auth) {
-    router.push('/admin');
-  }
+  useEffect(() => {
+    if (auth) {
+      router.push('/admin');
+    }
+  }, []);
 
   async function onSubmit(data) {
     setSubmitting(true);

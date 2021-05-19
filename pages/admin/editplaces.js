@@ -8,16 +8,18 @@ import { BASE_URL } from '../../constants/api';
 import useSWR from 'swr';
 import { DotsVerticalIcon, PlusIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
+import { BigMessage } from '../../components/common/Message';
 
 function EditPlaces() {
   const [auth, setAuth] = useContext(AuthContext);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!auth) {
-      router.push('/login');
-    }
-  });
+  if (!auth) {
+    router.push('/login');
+    return (
+      <BigMessage message="Oops! Did you forget to log in?" style="danger" />
+    );
+  }
 
   const url = BASE_URL + 'places?_sort=title:ASC';
 
@@ -80,9 +82,7 @@ function EditPlaces() {
                       </p>
                     </div>
                     <div className="w-auto"></div>
-                    <Link
-                      href="editplaces/[slug]"
-                      as={`editplaces/${place.slug}`}>
+                    <Link href="editplaces/[id]" as={`editplaces/${place.id}`}>
                       <a>
                         <DotsVerticalIcon className="cursor-pointer h-5 text-gray-500 hover:text-black" />
                         <span className="sr-only">Open settings</span>
