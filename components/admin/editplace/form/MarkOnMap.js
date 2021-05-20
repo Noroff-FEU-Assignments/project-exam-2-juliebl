@@ -46,7 +46,7 @@ function MarkOnMap({ longitude, latitude, setLongitude, setLatitude }) {
             onDragStart={onMarkerDragStart}
             onDrag={onMarkerDrag}
             onDragEnd={onMarkerDragEnd}>
-            <LocationMarkerIcon className="w-6 text-primary" />
+            <LocationMarkerIcon className="cursor-pointer w-6 text-primary hover:text-primary-dark" />
           </Marker>
         </ReactMapGL>
       </div>
