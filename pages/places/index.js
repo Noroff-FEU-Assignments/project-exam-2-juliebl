@@ -57,7 +57,7 @@ function Home() {
           setFilteredPlaces={setFilteredPlaces}
         />
       </div>
-      <div className="min-h-full grid grid-cols-5 grid-rows-2 gap-4 places__wrapper">
+      <div className="grid grid-cols-5 grid-rows-2 gap-4 places__wrapper">
         <div className="hidden md:block relative col-span-3 row-span-2 map__wrapper bg-gray-200">
           <Map
             showPopup={showPopup}

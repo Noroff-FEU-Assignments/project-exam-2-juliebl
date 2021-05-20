@@ -25,7 +25,7 @@
 }
 
 .places__wrapper {
-  max-height: calc(100vh - 164px) !important;
+  height: calc(100vh - 164px) !important;
 }
 
 @media (max-width: 800px) {
