@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
 import { Transition } from '@headlessui/react';
 import ReactMapGL, { Marker } from 'react-map-gl';
-import { LocationMarkerIcon, XIcon } from '@heroicons/react/solid';
+import { LocationMarkerIcon } from '@heroicons/react/solid';
 import CardListItem from '../card/CardListItem';
 import Link from 'next/link';
-import { BASE_URL } from '../../../constants/api';
-import useSWR from 'swr';
 
-export function Markers({
-  showPopup,
-  setShowPopup,
-  activePlace,
-  setActivePlace,
-}) {
-  const { data, error } = useSWR(BASE_URL + 'places');
-  if (error) return <p>error</p>;
-  if (!data) return <p>loading..</p>;
+export function Markers({ showPopup, setShowPopup, setActivePlace, places }) {
   return (
     <>
-      {data.map((place) => (
+      {places.map((place) => (
         <Marker
           key={place.id}
           latitude={place.latitude}
@@ -65,16 +55,10 @@ export function Markers({
   );
 }
 
-export function Pins({
-  data,
-  showPopup,
-  setShowPopup,
-  activePlace,
-  setActivePlace,
-}) {
+export function Pins({ places, setShowPopup }) {
   return (
     <>
-      {data.map((place) => (
+      {places.map((place) => (
         <Marker
           key={place.id}
           latitude={place.latitude}
@@ -91,7 +75,7 @@ export function Pins({
     </>
   );
 }
-function Map({ showPopup, setShowPopup, activePlace, setActivePlace }) {
+function Map({ showPopup, setShowPopup, activePlace, setActivePlace, places }) {
   const [viewport, setViewport] = useState({
     latitude: 60.3855,
     longitude: 5.32,
@@ -101,9 +85,6 @@ function Map({ showPopup, setShowPopup, activePlace, setActivePlace }) {
     width: '100%',
     height: '100%',
   });
-  const { data, error } = useSWR(BASE_URL + 'places');
-  if (error) return <p>error</p>;
-  if (!data) return <p>loading..</p>;
 
   return (
     <ReactMapGL
@@ -113,18 +94,11 @@ function Map({ showPopup, setShowPopup, activePlace, setActivePlace }) {
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
       {...size}
       onSizeChange={(nextSize) => setSize(nextSize)}>
-      <Pins
-        data={data}
-        showPopup={showPopup}
-        setShowPopup={setShowPopup}
-        activePlace={activePlace}
-        setActivePlace={setActivePlace}
-      />
+      <Pins places={places} setShowPopup={setShowPopup} />
       <Markers
-        data={data}
+        places={places}
         showPopup={showPopup}
         setShowPopup={setShowPopup}
-        activePlace={activePlace}
         setActivePlace={setActivePlace}
       />
     </ReactMapGL>

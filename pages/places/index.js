@@ -1,35 +1,48 @@
 import Head from '../../components/layout/Head';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Heading from '../../components/common/Heading';
 import Layout from '../../components/layout/Layout';
 import Map from '../../components/places/map/Map';
 import Cards from '../../components/places/card/Cards';
 import SearchBar from '../../components/places/SearchBar';
 import { BASE_URL } from '../../constants/api';
-import useSWR from 'swr';
+import axios from 'axios';
+import { BigMessage } from '../../components/common/Message';
 
 function Home() {
+  const [error, setError] = useState(null);
   const [activePlace, setActivePlace] = useState(2);
   const [showPopup, setShowPopup] = useState(null);
-  const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const [filteredPlaces, setFilteredPlaces] = useState(null);
+  const [places, setPlaces] = useState([]);
 
   const url = BASE_URL + 'places?_sort=title:ASC';
 
-  const { data, error } = useSWR(url);
+  useEffect(() => {
+    axios
+      .get(url)
+      .then((res) => {
+        setPlaces(res.data);
+        setFilteredPlaces(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error);
+      });
+  }, []);
 
   if (error) {
     return (
-      <>
-        <p>{error}</p>
-      </>
+      <Layout containerSize="fullWidth">
+        <BigMessage message={`${error}`} style="danger" />
+      </Layout>
     );
   }
-
-  if (!data) {
+  if (!filteredPlaces && !error) {
     return (
-      <div>
-        <p>loading...</p>
-      </div>
+      <Layout containerSize="fullWidth">
+        <BigMessage message="Loading..." style="loading" />
+      </Layout>
     );
   }
 
@@ -39,7 +52,7 @@ function Home() {
       {/*  <Heading text="Map" />*/}
       <div className="bg-white max-w-2xl ml-4" style={{ height: '100px' }}>
         <SearchBar
-          data={data}
+          places={places}
           filteredPlaces={filteredPlaces}
           setFilteredPlaces={setFilteredPlaces}
         />
@@ -49,17 +62,12 @@ function Home() {
           <Map
             showPopup={showPopup}
             setShowPopup={setShowPopup}
-            activePlace={activePlace}
             setActivePlace={setActivePlace}
+            places={places}
           />
         </div>
         <ul className="col-span-5 md:col-span-2 row-span-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-4 overflow-y-auto">
-          <Cards
-            showPopup={showPopup}
-            setShowPopup={setShowPopup}
-            activePlace={activePlace}
-            setActivePlace={setActivePlace}
-          />
+          <Cards setShowPopup={setShowPopup} filteredPlaces={filteredPlaces} />
         </ul>
       </div>
     </Layout>

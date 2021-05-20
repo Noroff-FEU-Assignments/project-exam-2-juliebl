@@ -1,18 +1,11 @@
 import CardListItem from './CardListItem';
-import { getData } from '../../../hooks/useApi';
 import Link from 'next/link';
-import { BASE_URL } from '../../../constants/api';
-import axios from 'axios';
-import useSWR from 'swr';
+import { Message } from '../../common/Message';
 
-function Cards({ showPopup, setShowPopup, activePlace, setActivePlace }) {
-  const url = BASE_URL + 'places?_sort=title:ASC';
-  const { data, error } = useSWR(url);
-  if (error) return <p>error</p>;
-  if (!data) return <p>loading..</p>;
+function Cards({ setShowPopup, filteredPlaces }) {
   return (
     <>
-      {data.map((place) => (
+      {filteredPlaces.map((place) => (
         <li
           key={place.id}
           onMouseEnter={() => setShowPopup(place.id)}
@@ -70,6 +63,11 @@ function Cards({ showPopup, setShowPopup, activePlace, setActivePlace }) {
           </div>
         </li>
       ))}
+      {filteredPlaces.length === 0 && (
+        <div className="col-span-2 w-100">
+          <Message message="No results found..." style="warning" />
+        </div>
+      )}
     </>
   );
 }
