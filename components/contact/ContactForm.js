@@ -37,7 +37,7 @@ function ContactForm() {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      const response = await axios.post(BASE_URL + 'messages', data);
+      const response = await axios.post(BASE_URL + 'messsages', data);
       console.log(response);
       setSubmitMessage(<Message message="Message sent" style="success" />);
     } catch (error) {
@@ -114,7 +114,7 @@ function ContactForm() {
                   {errors.message && errors.message.message}
                 </div>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col md:flex-row justify-between items-center">
                 <div>
                   {submitError ? (
                     <Message message={submitError} style="danger" />
