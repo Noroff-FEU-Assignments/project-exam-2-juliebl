@@ -8,7 +8,9 @@ export default function Home() {
     <Layout containerSize="smallWidth">
       <Head title="Contact" />
       <Heading text="Contact" />
-      <ContactForm />
+      <div className="sm:w-10/12 lg:w-2/4 mx-auto">
+        <ContactForm />
+      </div>
     </Layout>
   );
 }
