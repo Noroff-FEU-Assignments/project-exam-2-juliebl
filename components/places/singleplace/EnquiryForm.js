@@ -69,7 +69,7 @@ function EnquiryForm({ place }) {
                     type="text"
                     name="user_email"
                     id="user_email"
-                    autoComplete="user_email"
+                    autoComplete="email"
                     ref={register}
                     className="mt-2 py-2 px-3 border outline-none border-gray-300  focus:border-primary rounded-md"></input>
                   {errors.user_email && errors.user_email.message}
@@ -104,7 +104,7 @@ function EnquiryForm({ place }) {
                   {errors.message && errors.message.message}
                 </div>
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col justify-between items-end">
                 <div>
                   {submitError ? (
                     <Message message={submitError} style="danger" />
