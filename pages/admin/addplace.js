@@ -12,11 +12,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import HostDropdown from '../../components/admin/editplace/form/HostDropdown';
 import TypeDropdown from '../../components/admin/editplace/form/TypeDropdown';
 import AuthContext from '../../context/AuthContext';
+import MarkOnMap from '../../components/admin/editplace/form/MarkOnMap';
 
 function AddPlace() {
   const [auth, setAuth] = useContext(AuthContext);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
+  const [latitude, setLatitude] = useState(60.3855);
+  const [longitude, setLongitude] = useState(5.32);
   const [host, setHost] = useState('');
   const router = useRouter();
 
@@ -202,6 +205,7 @@ function AddPlace() {
                           type="number"
                           name="latitude"
                           id="latitude"
+                          value={latitude}
                           ref={register}
                           className="w-full mt-1 mb-4 py-2 px-3 border outline-none border-gray-300  focus:border-primary rounded-md"></input>
                       </div>
@@ -216,8 +220,16 @@ function AddPlace() {
                           name="longitude"
                           id="longitude"
                           ref={register}
+                          value={longitude}
                           className="w-full mt-1 mb-4 py-2 px-3 border outline-none border-gray-300  focus:border-primary rounded-md"></input>
                       </div>
+                      <p>Drag marker to pin the location:</p>
+                      <MarkOnMap
+                        latitude={latitude}
+                        setLatitude={setLatitude}
+                        longitude={longitude}
+                        setLongitude={setLongitude}
+                      />
                     </div>
                   </div>
                   <div>
