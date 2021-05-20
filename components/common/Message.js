@@ -52,7 +52,7 @@ export function BigMessage({ message, style }) {
   }
   return (
     <div
-      className={`bg-${style} text-${style}-dark max-w-7xl py-10 px-20 mx-auto text-center shadow-lg rounded-md`}>
+      className={`bg-${style} text-${style}-dark max-w-7xl py-10 px-20 mx-auto text-center rounded-md`}>
       {icon}
       <p className={`mt-4 text-large font-medium`}>{message}</p>
     </div>
