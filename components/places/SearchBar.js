@@ -39,7 +39,7 @@ function SearchBar({ places, filteredPlaces, setFilteredPlaces }) {
     }
   }
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pt-6">
       <div className="flex flex-row ">
         <label htmlFor="searchplace" className="sr-only">
           Password
