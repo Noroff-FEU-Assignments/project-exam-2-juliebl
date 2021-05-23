@@ -57,9 +57,9 @@ function AdminLayout({ children }) {
         <>
           <Disclosure
             as="nav"
-            className="md:hidden z-10 md:h-16 bg-secondary-dark text-white">
+            className=" lg:hidden z-10 md:h-16 bg-secondary-dark text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-center justify-between h-16">
+              <div className="flex z-50 items-center justify-between h-16">
                 <Link href="/">
                   <a>
                     <img
@@ -69,7 +69,6 @@ function AdminLayout({ children }) {
                     />
                   </a>
                 </Link>
-
                 <SidebarToggle
                   setSidebarOpen={setSidebarOpen}
                   sidebarOpen={sidebarOpen}
@@ -85,8 +84,8 @@ function AdminLayout({ children }) {
               logout={logout}
             />
           </Disclosure>
-          <div className="flex flex-row min-h-screen z-20 bg-neutral-light">
-            <div className="hidden md:block w-80 h-screen">
+          <div className="m-0 grid grid-cols-4 xl:grid-cols-5 z-0">
+            <div className="hidden lg:block col-span-1 h-screen">
               <Sidebar
                 auth={auth}
                 setAuth={setAuth}
@@ -95,8 +94,8 @@ function AdminLayout({ children }) {
                 logout={logout}
               />
             </div>
-            <div className="w-full">
-              <main className="mx-auto h-full">{children}</main>
+            <div className="col-span-4 lg:col-span-3 xl:col-span-4 pb-20 bg-gray-100">
+              <main className=" mx-10">{children}</main>
             </div>
           </div>
         </>

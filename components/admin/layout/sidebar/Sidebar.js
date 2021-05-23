@@ -17,7 +17,7 @@ function Sidebar({ auth, setAuth, newMessages, logout }) {
 
   return (
     <>
-      <div className="bg-secondary-dark text-white w-80 h-full flex flex-col justify-between items-center">
+      <div className="bg-secondary-dark text-white fixed w-1/4 xl:w-1/5 h-full flex flex-col justify-between items-center">
         <div className="flex flex-col w-full items-center">
           <Link href="/">
             <a>

@@ -19,7 +19,9 @@ function MobileSidebar({ sidebarOpen, auth, setAuth, newMessages, logout }) {
   return (
     <>
       {auth && (
-        <Disclosure.Panel static className="md:hidden bg-secondary-dark">
+        <Disclosure.Panel
+          static
+          className="lg:hidden fixed z-50 w-full bg-secondary-dark">
           <Transition
             show={sidebarOpen}
             enter="transition ease-out duration-100"
