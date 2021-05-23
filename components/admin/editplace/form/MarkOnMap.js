@@ -30,7 +30,7 @@ function MarkOnMap({ longitude, latitude, setLongitude, setLatitude }) {
 
   return (
     <>
-      <div className="h-60 w-full my-2">
+      <div className="h-48 w-full my-2">
         <ReactMapGL
           className="rounded-md"
           mapStyle={'mapbox://styles/mapbox/streets-v11?optimize=true'}
