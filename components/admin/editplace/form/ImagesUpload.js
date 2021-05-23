@@ -85,7 +85,7 @@ function ImagesUpload({ register }) {
   );
   return (
     <div className="col-span-1 sm:col-span-2 xl:col-span-1">
-      <label className="block text-sm font-medium text-gray-700">
+      <label className="block mt-3 text-sm font-medium text-gray-700">
         Choose Images
       </label>
       <div
